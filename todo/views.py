@@ -66,13 +66,13 @@ def currenttodos(request):
 
 @login_required
 def viewtodo(request, todo_id):
-    viewtodos = get_object_or_404(Todo, pk=todo_id, todocreator=request.user)
+    viewtodo = get_object_or_404(Todo, pk=todo_id, todocreator=request.user)
     if request.method == 'GET':
-        form = TodoForm(instance=viewtodos)
-        return render(request, 'todo/viewtodos.html', {'viewtodos': viewtodos, 'form': form})
+        form = TodoForm(instance=viewtodo)
+        return render(request, 'todo/viewtodo.html', {'viewtodo': viewtodo, 'form': form})
     else:
         try:
-            form = TodoForm(request.POST, instance=viewtodos)
+            form = TodoForm(request.POST, instance=viewtodo)
             form.save()
             return redirect('currenttodos')
         except ValueError:
@@ -85,7 +85,7 @@ def completetodo(request, todo_id):
         completetodos.save()
         return redirect('currenttodos')
 
-def deletedtodo(request, todo_id):
+def deletetodo(request, todo_id):
     deletedtodos = get_object_or_404(Todo, pk=todo_id, todocreator=request.user)
     if request.method == 'POST':
         deletedtodos.delete()
@@ -93,5 +93,5 @@ def deletedtodo(request, todo_id):
 
 @login_required
 def completedtodos(request):
-    completedtodos = Todo.objects.filter(todocreator=request.user, datecompleted__isnull=False).order_by('-datecompleted')
-    return render(request, 'todo/completedtodos.html', {'todos': completedtodos})
+    completetodos = Todo.objects.filter(todocreator=request.user, datecompleted__isnull=False).order_by('-datecompleted')
+    return render(request, 'todo/completedtodos.html', {'todos': completetodos})
