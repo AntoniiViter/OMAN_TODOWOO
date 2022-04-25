@@ -91,6 +91,12 @@ def deletetodo(request, todo_id):
         deletedtodos.delete()
         return redirect('currenttodos')
 
+def deletetodo_completed(request, todo_id):
+    deletedtodos = get_object_or_404(Todo, pk=todo_id, todocreator=request.user)
+    if request.method == 'POST':
+        deletedtodos.delete()
+        return redirect('completedtodos')
+
 @login_required
 def completedtodos(request):
     completetodos = Todo.objects.filter(todocreator=request.user, datecompleted__isnull=False).order_by('-datecompleted')
