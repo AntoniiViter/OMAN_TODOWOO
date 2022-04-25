@@ -2,7 +2,7 @@
 
 {% block content %}
 
-Current
+Completed
 
 <ul>
  {% for todo in todos %}
@@ -10,8 +10,15 @@ Current
      <a href="{% url 'viewtodo' todo.id %}">
      {% if todo.important %}<b>{% endif %}{{ todo.title }}{% if todo.important %}</b>{% endif %}
      </a>
-     {% if todo.memo %} - {{ todo.memo|striptags|truncatechars:100 }}{% endif %}
+{% if todo.memo %} - {{ todo.memo|striptags|truncatechars:100 }}{% endif %}
+ <br>
+    {{ todo.datecompleted|date:'M j Y H:i' }}
+
  </li>
+{#<form method="POST" action="{% url 'deletedtodo' todo.id %}">#}
+{#{% csrf_token %}#}
+{#<button type="submit">Delete</button>#}
+{#</form>#}
  {% endfor %}
 </ul>
 

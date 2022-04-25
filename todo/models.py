@@ -8,8 +8,8 @@ class Todo(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     datecompleted = models.DateTimeField(null=True, blank=True)
     important = models.BooleanField(default=False)
-    image = models.ImageField(upload_to='todo/images/', blank=True)
-    url = models.URLField(blank=True)
+    #image = models.ImageField(upload_to='todo/images/', blank=True)
+    #url = models.URLField(blank=True)
     todocreator = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
